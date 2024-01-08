@@ -76,7 +76,6 @@ public class VideoTrimmerUtil {
 
     String cmd = "-i " + inputWebMFile + " -c:v libx264 -c:a aac " + outputMp4File;
 
-    callback.onStartTrim(); // Assuming you have a similar callback for start of process
     FFmpegKit.executeAsync(cmd, session -> {
       SessionState state = session.getState();
       ReturnCode returnCode = session.getReturnCode();
