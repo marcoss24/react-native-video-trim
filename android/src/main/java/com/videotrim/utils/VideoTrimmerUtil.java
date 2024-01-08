@@ -88,7 +88,9 @@ public static void convertWebMToMp4(String inputWebMFile, String outputDirectory
           callback.onFailure();
         }
     }, log -> {
-      // Log output (if needed)
+
+    }, statistics -> {
+      // TODO: implement?
     });
   }
 
