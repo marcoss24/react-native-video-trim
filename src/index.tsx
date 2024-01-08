@@ -76,10 +76,8 @@ export function convertToMp4(videoPath: string): Promise<string> {
   })
 }
 
-export async function runFFmpeg(command: string): Promise<string> {
-  try {
-   return await VideoTrim.runFFmpegCommand(command);
-  } catch (e) {
-    return 'Error'
-  }
+export function runFFmpeg(command: string): Promise<string> {
+  return new Promise((...promiseCallbacks) => {
+    VideoTrim.runFFmpegCommand(command, promiseCallbacks);
+  })
 };
