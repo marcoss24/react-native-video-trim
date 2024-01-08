@@ -30,7 +30,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.videotrim.interfaces.VideoTrimListener;
-import com.videotrim.interfaces.ConversionCallback;
+import com.videotrim.interfaces.VideoConversion;
 import com.videotrim.utils.StorageUtil;
 import com.videotrim.utils.VideoTrimmerUtil;
 import com.videotrim.widgets.VideoTrimmerView;
@@ -39,7 +39,7 @@ import java.io.IOException;
 import iknow.android.utils.BaseUtils;
 
 @ReactModule(name = VideoTrimModule.NAME)
-public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, ConversionCallback. LifecycleEventListener {
+public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, VideoConversion, LifecycleEventListener {
   public static final String NAME = "VideoTrim";
   private static Boolean isInit = false;
   private VideoTrimmerView trimmerView;
@@ -116,7 +116,7 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
 
   @ReactMethod
   public void convertToMp4(String videoPath, Promise promise) {
-    ConversionCallback callback = new ConversionCallback() {
+    VideoConversion callback = new VideoConversion() {
         @Override
         public void onSuccess(String outputPath) {
             promise.resolve(outputPath);

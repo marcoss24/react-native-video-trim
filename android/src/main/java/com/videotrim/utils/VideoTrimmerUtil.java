@@ -10,7 +10,7 @@ import com.arthenica.ffmpegkit.FFmpegKit;
 import com.arthenica.ffmpegkit.ReturnCode;
 import com.arthenica.ffmpegkit.SessionState;
 import com.videotrim.interfaces.VideoTrimListener;
-import com.videotrim.interfaces.ConversionCallback;
+import com.videotrim.interfaces.VideoConversion;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,7 +69,7 @@ public class VideoTrimmerUtil {
     });
   }
 
- public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, ConversionCallback callback) {
+ public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, VideoConversion callback) {
     final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
     final String outputMp4Name = "convertedVideo_" + timeStamp + ".mp4";
     final String outputMp4File = outputDirectory + "/" + outputMp4Name;

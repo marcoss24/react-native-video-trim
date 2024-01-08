@@ -7,8 +7,3 @@ public interface VideoTrimListener {
   void onError();
   void onCancel();
 }
-
-public interface ConversionCallback {
-  void onSuccess(String outputPath);
-  void onFailure();
-}
