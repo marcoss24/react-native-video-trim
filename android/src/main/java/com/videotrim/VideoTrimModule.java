@@ -34,6 +34,8 @@ import com.videotrim.interfaces.VideoConversion;
 import com.videotrim.utils.StorageUtil;
 import com.videotrim.utils.VideoTrimmerUtil;
 import com.videotrim.widgets.VideoTrimmerView;
+import com.arthenica.ffmpegkit.FFmpegKit;
+import com.arthenica.ffmpegkit.ReturnCode;
 
 import java.io.IOException;
 import iknow.android.utils.BaseUtils;
@@ -111,6 +113,19 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
         sendEvent(getReactApplicationContext(), "onHide", null);
       });
       sendEvent(getReactApplicationContext(), "onShow", null);
+    });
+  }
+
+  @ReactMethod
+  public void runFFmpegCommand(String command, Promise promise) {
+    FFmpegKit.executeAsync(command, session -> {
+      if (ReturnCode.isSuccess(session.getReturnCode())) {
+        promise.resolve("Success");
+      } else if (ReturnCode.isCancel(session.getReturnCode())) {
+        promise.reject("FFmpeg Cancelled", "The FFmpeg operation was cancelled.");
+      } else {
+        promise.reject("FFmpeg Failed", "The FFmpeg operation failed.");
+      }
     });
   }
 
