@@ -69,7 +69,7 @@ public class VideoTrimmerUtil {
     });
   }
 
- public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, VideoConversion callback) {
+public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, VideoConversion callback) {
     final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
     final String outputMp4Name = "convertedVideo_" + timeStamp + ".mp4";
     final String outputMp4File = outputDirectory + "/" + outputMp4Name;

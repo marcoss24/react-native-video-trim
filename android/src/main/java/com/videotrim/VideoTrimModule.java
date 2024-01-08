@@ -39,7 +39,7 @@ import java.io.IOException;
 import iknow.android.utils.BaseUtils;
 
 @ReactModule(name = VideoTrimModule.NAME)
-public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, VideoConversion, LifecycleEventListener {
+public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, LifecycleEventListener {
   public static final String NAME = "VideoTrim";
   private static Boolean isInit = false;
   private VideoTrimmerView trimmerView;
@@ -169,7 +169,6 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
       mProgressBar.setProgress(percentage);
     }
   }
-
 
   @Override public void onFinishTrim(String in) {
     runOnUiThread(() -> {
