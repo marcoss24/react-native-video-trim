@@ -39,7 +39,7 @@ import java.io.IOException;
 import iknow.android.utils.BaseUtils;
 
 @ReactModule(name = VideoTrimModule.NAME)
-public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, LifecycleEventListener {
+public class VideoTrimModule extends ReactContextBaseJavaModule implements VideoTrimListener, ConversionCallback. LifecycleEventListener {
   public static final String NAME = "VideoTrim";
   private static Boolean isInit = false;
   private VideoTrimmerView trimmerView;
