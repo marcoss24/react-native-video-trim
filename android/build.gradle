@@ -6,7 +6,7 @@ buildscript {
 
   ext {
       ffmpegKitPackage = "full" // default "min", if followed by lts then LTS version is use. Eg "full-lts"
-      ffmpegKitPackageVersion = "5.1.LTS" // use exact version, highest precedence, default 6.0-2 if ignored
+      ffmpegKitPackageVersion = "6.0.2" // use exact version, highest precedence, default 6.0-2 if ignored
   }
 
   dependencies {
