@@ -31,6 +31,7 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.videotrim.interfaces.VideoTrimListener;
 import com.videotrim.utils.StorageUtil;
+import com.videotrim.utils.VideoTrimmerUtil;
 import com.videotrim.widgets.VideoTrimmerView;
 
 import java.io.IOException;
@@ -110,6 +111,23 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
       });
       sendEvent(getReactApplicationContext(), "onShow", null);
     });
+  }
+
+  @ReactMethod
+  public void convertToMp4(String videoPath, Promise promise) {
+    ConversionCallback callback = new ConversionCallback() {
+        @Override
+        public void onSuccess(String outputPath) {
+            promise.resolve(outputPath);
+        }
+
+        @Override
+        public void onFailure() {
+            promise.reject(new Throwable("Conversion Failed"));
+        }
+    };
+
+    VideoTrimmerUtil.convertWebMToMp4(videoPath, StorageUtil.getCacheDir(), callback);
   }
 
   private void init(Activity activity) {

@@ -68,6 +68,31 @@ public class VideoTrimmerUtil {
     });
   }
 
+ public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, ConversionCallback callback) {
+    final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+    final String outputMp4Name = "convertedVideo_" + timeStamp + ".mp4";
+    final String outputMp4File = outputDirectory + "/" + outputMp4Name;
+
+    String cmd = "-i " + inputWebMFile + " -c:v libx264 -c:a aac " + outputMp4File;
+
+    callback.onStartTrim(); // Assuming you have a similar callback for start of process
+    FFmpegKit.executeAsync(cmd, session -> {
+      SessionState state = session.getState();
+      ReturnCode returnCode = session.getReturnCode();
+
+      Log.d(TAG, String.format("FFmpeg process exited with state %s and rc %s.%s", state, returnCode, session.getFailStackTrace()));
+
+      if (state.equals(SessionState.COMPLETED)) {
+          callback.onSuccess(outputMp4File);
+        } else {
+          callback.onFailure();
+        }
+    }, log -> {
+      // Log output (if needed)
+    });
+  }
+
+
   public static void shootVideoThumbInBackground(final Context context, final Uri videoUri, final int totalThumbsCount, final long startPosition,
                                                  final long endPosition, final SingleCallback<Bitmap, Integer> callback) {
     BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0L, "") {
