@@ -30,6 +30,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.videotrim.interfaces.VideoTrimListener;
+import com.videotrim.interfaces.ConversionCallback;
 import com.videotrim.utils.StorageUtil;
 import com.videotrim.utils.VideoTrimmerUtil;
 import com.videotrim.widgets.VideoTrimmerView;

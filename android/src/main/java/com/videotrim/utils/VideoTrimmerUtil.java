@@ -10,6 +10,7 @@ import com.arthenica.ffmpegkit.FFmpegKit;
 import com.arthenica.ffmpegkit.ReturnCode;
 import com.arthenica.ffmpegkit.SessionState;
 import com.videotrim.interfaces.VideoTrimListener;
+import com.videotrim.interfaces.ConversionCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

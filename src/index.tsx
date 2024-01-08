@@ -71,7 +71,7 @@ export function isValidVideo(videoPath: string): Promise<boolean> {
 }
 
 export function convertToMp4(videoPath: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    VideoTrim.convertToMp4(videoPath, resolve, reject)
+  return new Promise((...promiseCallbacks) => {
+    VideoTrim.convertToMp4(videoPath, promiseCallbacks)
   })
 }
