@@ -130,6 +130,11 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
   }
 
   @ReactMethod
+  public String getCacheDir() {
+    return StorageUtil.getCacheDir();
+  }
+
+  @ReactMethod
   public void convertToMp4(String videoPath, Promise promise) {
     VideoConversion callback = new VideoConversion() {
         @Override

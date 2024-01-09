@@ -81,3 +81,7 @@ export function runFFmpeg(command: string): Promise<string> {
     VideoTrim.runFFmpegCommand(command, promiseCallbacks);
   })
 };
+
+export function getCacheDir(): string {
+  return VideoTrim.getCacheDir()
+}
