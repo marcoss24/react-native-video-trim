@@ -117,25 +117,7 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
   }
 
   @ReactMethod
-  public void runFFmpegCommand(String command, Promise promise) {
-    FFmpegKit.executeAsync(command, session -> {
-      if (ReturnCode.isSuccess(session.getReturnCode())) {
-        promise.resolve("Success");
-      } else if (ReturnCode.isCancel(session.getReturnCode())) {
-        promise.reject("FFmpeg Cancelled", "The FFmpeg operation was cancelled.");
-      } else {
-        promise.reject("FFmpeg Failed", "The FFmpeg operation failed.");
-      }
-    });
-  }
-
-  @ReactMethod
-  public String getCacheDir() {
-    return StorageUtil.getCacheDir();
-  }
-
-  @ReactMethod
-  public void convertToMp4(String videoPath, Promise promise) {
+  public void executeFFmpeg(String videoPath, String command, String fileName, Promise promise) {
     VideoConversion callback = new VideoConversion() {
         @Override
         public void onSuccess(String outputPath) {
@@ -148,7 +130,9 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
         }
     };
 
-    VideoTrimmerUtil.convertWebMToMp4(videoPath, StorageUtil.getCacheDir(), callback);
+    final String outputFile = StorageUtil.getCacheDir() + "/" + fileName;
+
+    VideoTrimmerUtil.executeFFmpeg(command, outputFile, callback);
   }
 
   private void init(Activity activity) {

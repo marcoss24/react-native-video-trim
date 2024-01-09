@@ -69,12 +69,8 @@ public class VideoTrimmerUtil {
     });
   }
 
-public static void convertWebMToMp4(String inputWebMFile, String outputDirectory, VideoConversion callback) {
-    final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-    final String outputMp4Name = "convertedVideo_" + timeStamp + ".mp4";
-    final String outputMp4File = outputDirectory + "/" + outputMp4Name;
-
-    String cmd = "-i " + inputWebMFile + " -c:v libx264 -c:a aac " + outputMp4File;
+public static void executeFFmpeg(String command, String outputDirectory, VideoConversion callback) {
+    String cmd = command + outputDirectory;
 
     FFmpegKit.executeAsync(cmd, session -> {
       SessionState state = session.getState();
@@ -83,7 +79,7 @@ public static void convertWebMToMp4(String inputWebMFile, String outputDirectory
       Log.d(TAG, String.format("FFmpeg process exited with state %s and rc %s.%s", state, returnCode, session.getFailStackTrace()));
 
       if (state.equals(SessionState.COMPLETED)) {
-          callback.onSuccess(outputMp4File);
+          callback.onSuccess(outputDirectory);
         } else {
           callback.onFailure();
         }

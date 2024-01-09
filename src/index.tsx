@@ -70,18 +70,8 @@ export function isValidVideo(videoPath: string): Promise<boolean> {
   return VideoTrim.isValidVideo(videoPath);
 }
 
-export function convertToMp4(videoPath: string): Promise<string> {
+export function executeFFmpeg(videoPath: string, command: string, fileName: string): Promise<string> {
   return new Promise((...promiseCallbacks) => {
-    VideoTrim.convertToMp4(videoPath, promiseCallbacks)
+    VideoTrim.convertToMp4(videoPath, command, fileName, promiseCallbacks)
   })
-}
-
-export function runFFmpeg(command: string): Promise<string> {
-  return new Promise((...promiseCallbacks) => {
-    VideoTrim.runFFmpegCommand(command, promiseCallbacks);
-  })
-};
-
-export function getCacheDir(): string {
-  return VideoTrim.getCacheDir()
 }
