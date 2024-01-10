@@ -70,7 +70,7 @@ public class VideoTrimmerUtil {
   }
 
 public static void executeFFmpeg(String command, String outputDirectory, VideoConversion callback) {
-    String cmd = command + outputDirectory;
+    String cmd = command + " " + outputDirectory;
 
     FFmpegKit.executeAsync(cmd, session -> {
       SessionState state = session.getState();

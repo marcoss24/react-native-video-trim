@@ -117,7 +117,7 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
   }
 
   @ReactMethod
-  public void executeFFmpeg(String videoPath, String command, String fileName, Promise promise) {
+  public void executeFFmpeg(String command, String fileName, Promise promise) {
     VideoConversion callback = new VideoConversion() {
         @Override
         public void onSuccess(String outputPath) {

@@ -70,8 +70,8 @@ export function isValidVideo(videoPath: string): Promise<boolean> {
   return VideoTrim.isValidVideo(videoPath);
 }
 
-export function executeFFmpeg(videoPath: string, command: string, fileName: string): Promise<string> {
-  return new Promise((...promiseCallbacks) => {
-    VideoTrim.convertToMp4(videoPath, command, fileName, promiseCallbacks)
+export function executeFFmpeg(command: string, fileName: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    VideoTrim.executeFFmpeg(command, fileName, { resolve, reject })
   })
 }
