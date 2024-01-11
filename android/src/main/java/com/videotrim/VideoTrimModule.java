@@ -30,8 +30,12 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.videotrim.interfaces.VideoTrimListener;
+import com.videotrim.interfaces.VideoConversion;
 import com.videotrim.utils.StorageUtil;
+import com.videotrim.utils.VideoTrimmerUtil;
 import com.videotrim.widgets.VideoTrimmerView;
+import com.arthenica.ffmpegkit.FFmpegKit;
+import com.arthenica.ffmpegkit.ReturnCode;
 
 import java.io.IOException;
 import iknow.android.utils.BaseUtils;
@@ -112,6 +116,31 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
     });
   }
 
+  @ReactMethod
+  public void executeFFmpeg(String command, Promise promise) {
+
+    Activity activity = getReactApplicationContext().getCurrentActivity();
+
+    if (!isInit) {
+      init(activity);
+      isInit = true;
+    }
+
+    VideoConversion callback = new VideoConversion() {
+        @Override
+        public void onSuccess() {
+            promise.resolve(true);
+        }
+
+        @Override
+        public void onFailure() {
+            promise.reject(new Throwable("Conversion Failed"));
+        }
+    };
+
+    VideoTrimmerUtil.executeFFmpeg(command, callback);
+  }
+
   private void init(Activity activity) {
     isInit = true;
     // we have to init this before create videoTrimmerView
@@ -150,7 +179,6 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
       mProgressBar.setProgress(percentage);
     }
   }
-
 
   @Override public void onFinishTrim(String in) {
     runOnUiThread(() -> {
