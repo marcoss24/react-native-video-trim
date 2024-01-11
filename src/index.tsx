@@ -70,8 +70,6 @@ export function isValidVideo(videoPath: string): Promise<boolean> {
   return VideoTrim.isValidVideo(videoPath);
 }
 
-export function executeFFmpeg(command: string, fileName: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    VideoTrim.executeFFmpeg(command, fileName, resolve, reject);
-  });
+export function executeFFmpeg(command: string): Promise<boolean> {
+  return VideoTrim.executeFFmpeg(command);
 }
