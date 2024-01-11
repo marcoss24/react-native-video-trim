@@ -117,11 +117,19 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
   }
 
   @ReactMethod
-  public void executeFFmpeg(String command, String fileName, Promise promise) {
+  public void executeFFmpeg(String command, Promise promise) {
+
+    Activity activity = getReactApplicationContext().getCurrentActivity();
+
+    if (!isInit) {
+      init(activity);
+      isInit = true;
+    }
+
     VideoConversion callback = new VideoConversion() {
         @Override
-        public void onSuccess(String outputPath) {
-            promise.resolve(outputPath);
+        public void onSuccess() {
+            promise.resolve(true);
         }
 
         @Override
@@ -130,9 +138,7 @@ public class VideoTrimModule extends ReactContextBaseJavaModule implements Video
         }
     };
 
-    final String outputFile = StorageUtil.getCacheDir() + "/" + fileName;
-
-    VideoTrimmerUtil.executeFFmpeg(command, outputFile, callback);
+    VideoTrimmerUtil.executeFFmpeg(command, callback);
   }
 
   private void init(Activity activity) {
