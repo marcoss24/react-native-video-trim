@@ -69,17 +69,15 @@ public class VideoTrimmerUtil {
     });
   }
 
-public static void executeFFmpeg(String command, String outputDirectory, VideoConversion callback) {
-    String cmd = command + " " + outputDirectory;
-
-    FFmpegKit.executeAsync(cmd, session -> {
+public static void executeFFmpeg(String command, VideoConversion callback) {
+    FFmpegKit.executeAsync(command, session -> {
       SessionState state = session.getState();
       ReturnCode returnCode = session.getReturnCode();
 
-      Log.d(TAG, String.format("FFmpeg process exited with state %s and rc %s.%s", state, returnCode, session.getFailStackTrace()));
+      Log.d(TAG, String.format("FFmpeg processss exited with state %s and rc %s.%s", state, returnCode, session.getFailStackTrace()));
 
       if (state.equals(SessionState.COMPLETED)) {
-          callback.onSuccess(outputDirectory);
+          callback.onSuccess();
         } else {
           callback.onFailure();
         }
